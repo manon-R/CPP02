@@ -9,11 +9,10 @@ public:
 
 	Fixed();
 	Fixed(const Fixed &other);
-	Fixed(const int);
-	Fixed(const float);
+	Fixed(const int nbi);
+	Fixed(const float nbf);
 
 	Fixed & operator= (const Fixed &other);
-	void operator<< (std::ostream, const Fixed &other);
 
 	~Fixed();
 
@@ -29,5 +28,7 @@ private:
 	int fp_value;
 	static const int fractionalb = 8;
 };
+
+std::ostream& operator<<(std::ostream& out, const Fixed& other);
 
 #endif
