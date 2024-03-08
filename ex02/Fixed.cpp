@@ -51,6 +51,98 @@ Fixed& Fixed::operator=(const Fixed &other){
 	return *this;
 }
 
+bool Fixed::operator> (const Fixed &other)const{
+	return fp_value > other.fp_value;
+}
+
+bool Fixed::operator< (const Fixed &other)const{
+	return fp_value < other.fp_value;
+}
+
+bool Fixed::operator>= (const Fixed &other)const{
+	return fp_value >= other.fp_value;
+}
+
+bool Fixed::operator<= (const Fixed &other)const{
+	return fp_value <= other.fp_value;
+}
+
+bool Fixed::operator== (const Fixed &other)const{
+	return fp_value == other.fp_value;
+}
+
+bool Fixed::operator!= (const Fixed &other)const{
+	return fp_value != other.fp_value;
+}
+
+Fixed Fixed::operator+ (const Fixed &other) const{
+	Fixed tmp;
+	tmp.setRawBits(fp_value + other.fp_value);
+	return tmp;
+}
+
+Fixed Fixed::operator- (const Fixed &other) const{
+	Fixed tmp;
+	tmp.setRawBits(fp_value - other.fp_value);
+	return tmp;
+}
+
+Fixed Fixed::operator* (const Fixed &other) const{
+	Fixed tmp;
+	int value = (long long) (fp_value * other.fp_value) >> fractionalb;
+	tmp.setRawBits(value);
+	return tmp;
+}
+
+Fixed Fixed::operator/ (const Fixed &other) const{
+	if (other.fp_value == 0)
+	{
+		cout << "Division by 0 is not possible" << endl;
+		return Fixed();
+	}
+	return Fixed(toFloat() / (other.toFloat()));
+}
+
+Fixed& Fixed::operator++ (){
+	++fp_value;
+	return *this;
+}
+
+Fixed Fixed::operator++ (int){
+	Fixed tmp;
+	tmp = *this;
+	fp_value++;
+	return tmp;
+}
+
+Fixed& Fixed::operator-- (){
+	--fp_value;
+	return *this;
+}
+
+Fixed Fixed::operator-- (int){
+	Fixed tmp;
+	tmp = *this;
+	fp_value--;
+	return tmp;
+}
+
+Fixed& Fixed::min(Fixed &f1, Fixed &f2){
+	return (f1.fp_value < f2.fp_value) ? f1 : f2;
+}
+
+const Fixed& Fixed::min(const Fixed &f1, const Fixed &f2){
+	return (f1.fp_value < f2.fp_value) ? f1 : f2;
+}
+
+Fixed& Fixed::max(Fixed &f1, Fixed &f2){
+	return (f1.fp_value > f2.fp_value) ? f1 : f2;
+}
+
+const Fixed& Fixed::max(const Fixed &f1, const Fixed &f2){
+	return (f1.fp_value > f2.fp_value) ? f1 : f2;
+}
+
 std::ostream& operator<<(std::ostream& out, const Fixed& other){
 	out << other.toFloat();
 	return out;

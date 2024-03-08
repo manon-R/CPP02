@@ -52,6 +52,5 @@ Fixed& Fixed::operator=(const Fixed &other){
 }
 
 std::ostream& operator<<(std::ostream& out, const Fixed& other){
-	out << other.toFloat();
-	return out;
+	return out << other.toFloat();
 }
