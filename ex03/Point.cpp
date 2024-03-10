@@ -4,33 +4,38 @@
 using std::cout;
 using std::endl;
 
-Point::Point(): x(0), y(0){
-}
+
+Point::Point(): x(0), y(0){}
 
 Point::Point(const Point &other){
 	*this = other;
 }
 
-Point::Point(const float x_coord, const float y_coord): x(x_coord), y(y_coord){
+Point::Point(const float& x_coord, const float& y_coord): x(x_coord), y(y_coord){
 }
 
-Point::~Point(){
-}
+Point::~Point(){}
 
 Point& Point::operator=(const Point &other){
 	if (this != &other)
 	{
-		this->x = other.x;
-		this->y = other.y;
+		(Fixed)this->x = other.getX();
+		(Fixed)this->y = other.getY();
 	}
 	return *this;
 }
 
-const Fixed Point::getX()const{
+Fixed Point::getX()const{
 	return x;
 }
 
-const Fixed Point::getY() const{
+Fixed Point::getY() const{
 	return y;
 }
 
+
+std::ostream & operator<<(std::ostream &out, const Point &p)
+{
+	out << "(x:" << p.getX() << ", y:" << p.getY() << ")";
+	return out;
+}
